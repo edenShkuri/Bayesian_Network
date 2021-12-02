@@ -17,7 +17,8 @@ for example - P(D1=T|C2=v1,C3=F) A2-C1-B0-A1-B1-A3-B2-B3 -return 0.37687,83,168
 the propability that D1=T given C2=V1 and C3=f is 0.37687, and it takes 83 addition operations and 168 multiplication operations.
 (the variables after the parenthesis is the order of the elumination).
  
-### Factor- hold the factor name and the factor table (for the variable_elimination).
+### Factor:
+hold the factor name and the factor table (for the variable_elimination).
 
 
 ### Preper the input
