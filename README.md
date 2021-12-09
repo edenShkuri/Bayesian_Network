@@ -1,27 +1,40 @@
 # Bayesian_Network
 
-## Data Structures:  
-### Bn_Node: 
+## Data Structures:
+### Bn_Node:
 represent a node in the graph / event in the Bayesia network.
 each node has a name(string), a list of outcomes (for example T or F),and a CPT(conditional probability table).
 
 ### Bayesian_Net:  
 the graph data structuer that represent the network.
-#### Algorithms:
-##### Bayes_ball - Given a query - returns "yes" if the variables are independent or "no" not.
-for example: 
-C2-A3|B3=T,C1=T - return "yes" if C2 and A3 are indepented given B3 and C1.
-see more explenation on the Bayes ball algorithm below.
-##### variable_elimination- Given a query - return the propability,the numer of addition operations and the number of multiplication operations.
-for example - P(D1=T|C2=v1,C3=F) A2-C1-B0-A1-B1-A3-B2-B3 -return 0.37687,83,168
-the propability that D1=T given C2=V1 and C3=f is 0.37687, and it takes 83 addition operations and 168 multiplication operations.
-(the variables after the parenthesis is the order of the elumination).
- 
+
 ### Factor:
 hold the factor name and the factor table (for the variable_elimination).
 
+## Algorithms:
+### Bayes_ball -
+Given a query - returns "yes" if the variables are independent or "no" not.
+the purpose of the algorithm is to fine if a couple of events are independent or not, given (or not) the values of other events.
+if ther is a path from one of the events (which are represented by vertices in the graph) to the other one - they are **not independent**, if there isn't - thery are **independent**.
+the algorithm is similar to the regular BFS exept the part that instead of going to every neighbor of each vertex there are some rules that determine who we can go to:
+- if we came to a vertex throw his **parent** and he is **given** in the query then we can go from this vertex only to **his parents**.
+- if we came to a vertex throw his **parent** and he is **not given** in the query then we can go from this vertex only to **his children**.
+- if we came to a vertex throw his **child** and he is **given** in the query then we **can't go any other vertices**.
+- if we came to a vertex throw his **child** and he is **not given** in the query then we can go from this vertex to **every other vertex**.
 
-### Preper the input
+<img width="200" alt="bayes_ball" src="https://user-images.githubusercontent.com/74586829/145380469-ec68fbf8-5f99-4875-868d-9612c4f5b6ce.png">
+
+
+for example: 
+C2-A3|B3=T,C1=T - returns "yes" if C2 and A3 are indepented given B3 and C1 (there is no path between C2 and A3 according to the rules), else returns "no".
+
+### variable_elimination-
+Given a query - return the propability,the numer of addition operations and the number of multiplication operations.
+for example - P(D1=T|C2=v1,C3=F) A2-C1-B0-A1-B1-A3-B2-B3 -return 0.37687,83,168
+the propability that D1=T given C2=V1 and C3=f is 0.37687, and it takes 83 addition operations and 168 multiplication operations.
+(the variables after the parenthesis is the order of the elumination).
+<br/><br/><br/><br/>
+## Preper the input
 the Baysian network graph shoud be in XML file like the one that given here-
 for verey variable put his name and his outcomes with the title of VARIABLE:
 <VARIABLE>
@@ -66,5 +79,4 @@ and "big_net.xml"
 
 
 <img width="231" alt="ללא שם" src="https://user-images.githubusercontent.com/74586829/144490601-afba31f7-bb21-4846-af2c-dcf573a290ff.png">
-
 
